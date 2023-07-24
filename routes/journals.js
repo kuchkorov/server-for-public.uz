@@ -2,7 +2,7 @@ import express from "express";
 import { 
     Addjournal, 
     DeleteJournal, 
-    getJournal, 
+    getJournalById, 
     getJournals, 
     updateJournal 
 } from "../controllers/journal.js";
@@ -10,7 +10,7 @@ import {
 const router = new express.Router();
 
 router.get("/", getJournals)
-router.get("/:id", getJournal)
+router.get("/:id", getJournalById)
 router.post("/", Addjournal)
 router.delete("/:id", DeleteJournal)
 router.put("/:id", updateJournal)
