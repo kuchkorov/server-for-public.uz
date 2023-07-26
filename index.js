@@ -2,16 +2,28 @@ import express from "express";
 import cors from "cors";
 import multer from 'multer'
 import AllJournals from "./routes/journals.js"
+import AllArticles from "./routes/articles.js"
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Update file
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../admin-for-public.uz/public/upload')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, Date.now()+file.originalname)
+  }
+})
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ storage })
 
-app.post('/upload', upload.single('img'), function (req, res) {
-  res.status(200).json("Image has been uploaded")
+app.post('/upload', upload.single('file'), function (req, res) {
+  const file = req.file
+  res.status(200).json(file.filename)
 
 })
 
@@ -23,39 +35,11 @@ app.get("/", (req, res) => {
 
   // Get All Journals
   app.use("/journals", AllJournals)
+
+  // Get All Articles
+  app.use("/articles", AllArticles)
   
-  // app.get("/journals/:id", (req, res) => {
-  //   const {id} = req.params;
-  //   const q = "SELECT * FROM `journals` WHERE 1"
-  //   db.query(q, (err, data) => {
-  //       if (err) {
-  //         console.log(err);
-  //         return res.json(err);
-  //       }
-  //       return res.json(data);
-  //     });
-  // })
-
-
-    // Update Journals by ID
-
-    app.put("/journals/:id", (req, res) => {
-        const journalsId = req.params.id;
-        const q = "UPDATE journals SET `img`= ?, `name`= ?, `title`= ?, `describtion`= ? WHERE id = ?";
-      
-        const values = [
-          req.body.img,
-          req.body.name,
-          req.body.title,
-          req.body.describtion,
-        ];
-      
-        db.query(q, [...values,journalsId], (err, data) => {
-          if (err) return res.send(err);
-          return res.json(data);
-        });
-      });
-
+  //Server
 app.listen(8800, () => {
     console.log("Server ishga tushdi...");
   });
