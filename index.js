@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import multer from 'multer'
+import path from 'path'
 import AllJournals from "./routes/journals.js"
 import AllArticles from "./routes/articles.js"
 
@@ -11,20 +12,18 @@ app.use(express.json());
 // Update file
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../admin-for-public.uz/public/upload')
+    cb(null, 'Images')
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, Date.now()+file.originalname)
+    cb(null, Date.now() + path.extname(file.originalname))
   }
 })
 
 const upload = multer({ storage })
 
-app.post('/upload', upload.single('file'), function (req, res) {
+app.post('/upload', upload.single("img"), function (req, res) {
   const file = req.file
   res.status(200).json(file.filename)
-
 })
 
 // Testing 

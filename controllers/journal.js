@@ -26,12 +26,12 @@ export const getJournalById = (req, res) => {
 
 // Add journal
 export const Addjournal = (req, res) => {
-  const q = "INSERT INTO journals(`img`, `name`, `title`, `describtion`) VALUES (?)";
+  const q = "INSERT INTO journals(`name`, `title`, `describtion``img`,) VALUES (?)";
   const values = [
-    req.body.img,
     req.body.name,
     req.body.title,
     req.body.describtion,
+    req.body.img,
   ];
 
   db.query(q, [values], (err, data) => {

@@ -9,7 +9,8 @@ import {
 
 const router = new express.Router();
 
-router.get("/", getJournals)
+
+router.get("/",  getJournals)
 router.get("/:id", getJournalById)
 router.post("/", Addjournal)
 router.delete("/:id", DeleteJournal)
