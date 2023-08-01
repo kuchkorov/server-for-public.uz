@@ -12,7 +12,7 @@ app.use(express.json());
 // Update file
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'Images')
+    cb(null, '../admin-for-public.uz/public/upload')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname))

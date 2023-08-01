@@ -26,12 +26,12 @@ export const getArticleById = (req, res) => {
 
 // Add Article
 export const AddArticle = (req, res) => {
-  const q = "INSERT INTO articles(`img`, `name`, `title`, `describtion`) VALUES (?)";
+  const q = "INSERT INTO articles(`img`, `name`, `title`, `file`) VALUES (?)";
   const values = [
     req.body.img,
     req.body.name,
     req.body.title,
-    req.body.describtion,
+    req.body.file,
   ];
 
   db.query(q, [values], (err, data) => {

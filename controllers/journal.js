@@ -43,7 +43,7 @@ export const Addjournal = (req, res) => {
 // Update Journal
 export const updateJournal = (req, res) => {
   const journalsId = req.params.id;
-        const q = "UPDATE journals SET `img`= ?, `name`= ?, `title`= ?, `describtion`= ? WHERE id = ?";
+        const q = "UPDATE journals SET  `name`= ?, `title`= ?, `describtion`= ?, `img`= ?, WHERE id = ?";
       
         const values = [
           req.body.img,
